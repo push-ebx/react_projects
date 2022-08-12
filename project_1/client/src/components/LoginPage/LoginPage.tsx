@@ -6,6 +6,8 @@ import {Button, Snackbar} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import {login} from "../../API/auth";
 import {AuthContext} from "../../context/auth-context";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 const LoginPage = () => {
   const sign_up_style = {
@@ -17,6 +19,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [isSnackbar, setIsSnackbar] = useState(false)
   const [mesSnackbar, setMesSnackbar] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const {setIsAuth} = useContext(AuthContext)
   const navigate = useNavigate()
   const usernameInput = useRef<HTMLInputElement>(null)
@@ -35,6 +38,7 @@ const LoginPage = () => {
       showSnackbar("All fields should be filled")
       return
     }
+    setIsLoading(true)
     await login(username, password).then(res => {
       const error_code = res?.data.error?.code;
       if (error_code) {
@@ -44,8 +48,10 @@ const LoginPage = () => {
         console.log(res?.data)
         document.cookie = `access_token=${res?.data.token}; expires=Tue, 19 Jan 2038 03:14:07 UTC;`;
         setIsAuth(true)
+        setIsLoading(false)
         navigate('/list')
       }
+      setIsLoading(false)
     }).catch(err => err.response.status === 400 && showSnackbar("Login error"));
   }
 
@@ -55,24 +61,43 @@ const LoginPage = () => {
 
   return (
     <div className={styles.main}>
-      <Card customClass={styles.form}>
-        <h2>Sign in</h2>
-        <Input placeholder='Username' inputRef={usernameInput} onChangeHandler={e => setUsername(e.target.value)} classes={styles.input}/>
-        <Input
-          placeholder='Password'
-          onChangeHandler={e => setPassword(e.target.value)}
-          type="password" classes={styles.input}
-          onKeyDownHandler={handleDownKey}
-        />
-        <Button style={sign_up_style} onClick={signInHandler} className={styles.sign_up} variant="outlined">Sign in</Button>
-        <Link to='/registration' className={styles.link}>Sing up</Link>
-      </Card>
-      <Snackbar
-        open={isSnackbar}
-        autoHideDuration={3000}
-        onClose={() => setIsSnackbar(false)}
-        message={mesSnackbar}
-      />
+      {
+        !isLoading
+          ?
+        <Card customClass={styles.form}>
+          <h2>Sign in</h2>
+          <Input placeholder='Username' inputRef={usernameInput} onChangeHandler={e => setUsername(e.target.value)}
+                 classes={styles.input}/>
+          <Input
+            placeholder='Password'
+            onChangeHandler={e => setPassword(e.target.value)}
+            type="password" classes={styles.input}
+            onKeyDownHandler={handleDownKey}
+          />
+          <Button
+            style={sign_up_style}
+            onClick={signInHandler}
+            className={styles.sign_up}
+            variant="outlined"
+          >
+            Sign in
+          </Button>
+          <Link to='/registration' className={styles.link}>Sing up</Link>
+          <Snackbar
+            open={isSnackbar}
+            autoHideDuration={3000}
+            onClose={() => setIsSnackbar(false)}
+            message={mesSnackbar}
+          />
+        </Card>
+          :
+        <Backdrop
+          sx={{color: 'var(--text-color)', zIndex: (theme) => theme.zIndex.drawer + 1}}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      }
     </div>
   );
 };
