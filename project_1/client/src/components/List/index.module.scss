@@ -1,0 +1,38 @@
+.title {
+  transition: color 0.4s ease;
+  color: var(--text-color);
+}
+
+.hr {
+  color: var(--text-color);
+}
+
+.input_task, .input_title{
+  color: var(--text-color);
+  border-color: var(--text-color);
+  font-family: 'Roboto', sans-serif;
+  padding: 0 0 4px 0;
+}
+
+.input_task {
+  font-size: 17px;
+  text-align: left;
+  font-weight: 400;
+}
+
+.input_title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.form_group {
+  margin: 15px 0 60px;
+}
+
+.remove {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+}

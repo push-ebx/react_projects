@@ -1,0 +1,37 @@
+.header {
+  text-align: center;
+  width: 100vw;
+  height: 70px;
+  background: var(--header-background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 50px;
+  transition: background 0.4s ease;
+}
+
+.todo {
+  color: var(--text-color);
+  font-family: Roboto, sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  letter-spacing: 0.4px;
+  user-select: none;
+  transition: color 0.4s ease;
+}
+
+.toggle {
+  cursor: pointer;
+  position: absolute;
+  left: 5%;
+}
+
+.toggle:hover {
+  opacity: 0.8;
+}
+
+.logout_grid {
+  position: absolute;
+  right: 5%;
+}
