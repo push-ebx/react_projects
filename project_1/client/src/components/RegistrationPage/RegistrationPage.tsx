@@ -92,12 +92,6 @@ const RegistrationPage = () => {
           />
           <Button style={sign_up_style} variant="outlined" onClick={signUpHandler}>Sign up</Button>
           <Link to='/login' className={styles.link}>Sing in</Link>
-          <Snackbar
-            open={isSnackbar}
-            autoHideDuration={3000}
-            onClose={() => setIsSnackbar(false)}
-            message={mesSnackbar}
-          />
         </Card>
           :
         <Backdrop
@@ -107,6 +101,12 @@ const RegistrationPage = () => {
           <CircularProgress color="inherit"/>
         </Backdrop>
       }
+      <Snackbar
+        open={isSnackbar}
+        autoHideDuration={3000}
+        onClose={() => setIsSnackbar(false)}
+        message={mesSnackbar}
+      />
     </div>
   );
 };

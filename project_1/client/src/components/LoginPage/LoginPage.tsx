@@ -83,12 +83,6 @@ const LoginPage = () => {
             Sign in
           </Button>
           <Link to='/registration' className={styles.link}>Sing up</Link>
-          <Snackbar
-            open={isSnackbar}
-            autoHideDuration={3000}
-            onClose={() => setIsSnackbar(false)}
-            message={mesSnackbar}
-          />
         </Card>
           :
         <Backdrop
@@ -98,6 +92,12 @@ const LoginPage = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       }
+      <Snackbar
+        open={isSnackbar}
+        autoHideDuration={3000}
+        onClose={() => setIsSnackbar(false)}
+        message={mesSnackbar}
+      />
     </div>
   );
 };
