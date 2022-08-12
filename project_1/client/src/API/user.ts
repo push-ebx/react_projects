@@ -3,7 +3,7 @@ import axios from 'axios';
 const cookie = require('cookie')
 
 const axios_proxy = axios.create({
-  baseURL: `http://localhost:5000/api/user/`
+  baseURL: `https://react-projects-1jx5xpssh-push-ebx.vercel.app/api/user/`
 });
 
 export const getUser = async () => {
